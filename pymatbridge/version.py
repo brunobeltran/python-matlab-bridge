@@ -88,7 +88,12 @@ PACKAGE_DATA = {"pymatbridge": ["matlab/matlabserver.m", "matlab/messenger.*",
                                            "mexw64/*",
                                            "mexa64/*"]}
 
-REQUIRES = ['pyzmq']
-#EXTRAS_REQUIRE = ['numpy', 'scipy', 'ipython']
+INSTALL_REQUIRES = ['pyzmq', 'numpy']
+SETUP_REQUIRES = ['pyzmq', 'numpy']
+EXTRAS_REQUIRE = {
+    'sparse': ['scipy', ],
+    'ipython': ['ipython', ],
+    'jupyter': ['ipython', ],
+}
 
 BIN=['scripts/publish-notebook']

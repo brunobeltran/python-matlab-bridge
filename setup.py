@@ -12,13 +12,6 @@ import glob
 if os.path.exists('MANIFEST'):
     os.remove('MANIFEST')
 
-# Find the messenger binary file(s) and copy it to /matlab folder.
-from pymatbridge.messenger.make import get_messenger_dir
-messenger_dir = get_messenger_dir()
-
-for f in glob.glob("./pymatbridge/messenger/%s/messenger.*" % messenger_dir):
-    shutil.copy(f, "./pymatbridge/matlab")
-    
 try:
     from setuptools import setup
 except ImportError:
@@ -43,8 +36,9 @@ opts = dict(name=NAME,
             version=VERSION,
             packages=PACKAGES,
             package_data=PACKAGE_DATA,
-            requires=REQUIRES,
-            #extras_require=EXTRAS_REQUIRE,
+            install_requires=INSTALL_REQUIRES,
+            extras_require=EXTRAS_REQUIRE,
+            setup_requires=SETUP_REQUIRES,
             scripts=BIN
             )
 
@@ -52,3 +46,10 @@ opts = dict(name=NAME,
 # Now call the actual setup function
 if __name__ == '__main__':
     setup(**opts)
+
+# Find the messenger binary file(s) and copy it to /matlab folder.
+from pymatbridge.messenger.make import get_messenger_dir
+messenger_dir = get_messenger_dir()
+
+for f in glob.glob("./pymatbridge/messenger/%s/messenger.*" % messenger_dir):
+    shutil.copy(f, "./pymatbridge/matlab")
